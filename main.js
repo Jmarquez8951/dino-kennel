@@ -44,7 +44,6 @@ const closeSingleViewEvent = () => {
 const viewSingleDino = (e) => {
     const dinoId = e.target.closest('.card').id;
     const selectedDino = dinos.find((currentDino) => dinoId === currentDino.id);
-    console.log(selectedDino);
     let domString = '';
     domString += '<button id="close-single-view" class="btn btn-outline-dark single-dino"><i class="far fa-times-circle"></i></button>';    
     domString += '<div class="container">';
@@ -89,6 +88,21 @@ const petEvents = () => {
     }
 };
 
+const deleteDinoEvent = (e) => {
+    const dinoId = e.target.closest('.card').id;
+    const dinoPosition = dinos.findIndex((x) => x.id === dinoId);
+    dinos.splice(dinoPosition, 1);
+    printDinos(dinos);
+
+}; 
+
+const deleteEvents = () => {
+    const dinoDeleteButtons = document.getElementsByClassName('delete-dino');
+    for (let i = 0; i < dinoDeleteButtons.length; i++){
+        dinoDeleteButtons[i].addEventListener('click', deleteDinoEvent);
+    }
+};
+
 const printDinos = (dinoArray) => {
     let domString ='';
     for (let i = 0; i < dinoArray.length; i++){
@@ -99,6 +113,7 @@ const printDinos = (dinoArray) => {
         domString += `<h5 class="card-title">${dinoArray[i].name}</h5>`;
         domString += `<p class="card-text">Health: ${dinoArray[i].health}</p>`;
         domString += '<button class="btn btn-outline-dark single-dino"><i class="far fa-eye"></i></button>';
+        domString += '<button class="btn btn-outline-danger delete-dino"><i class="far fa-trash-alt"></i></button>';
         domString += '</div>';
         domString += '</div>';
         domString += '</div>';
@@ -106,6 +121,7 @@ const printDinos = (dinoArray) => {
     printToDom('kennel', domString);
     singleDinoAddEvents();
     petEvents();
+    deleteEvents();
 };
 
 const newDino = (e) => {
@@ -124,7 +140,6 @@ const newDino = (e) => {
       document.getElementById('newDinoForm').reset();
       document.getElementById('collapseOne').classList.remove('show');
       printDinos(dinos);
-    console.log('hi from newDino', dinos);
 };
 
 const init = () => {
