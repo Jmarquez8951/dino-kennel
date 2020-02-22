@@ -3,10 +3,10 @@ const dinos = [
         id: 'dino1',
         name: 'Rex',
         type: 'T Rex',
-        age: 100,
+        age: 98,
         owner: 'Luke',
         adventures: [],
-        health: 100,
+        health: 98,
         imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/61fC04pumjL._AC_SL1001_.jpg'
       },
       {
@@ -16,7 +16,7 @@ const dinos = [
         age: 44,
         owner: 'Zoe',
         adventures: [],
-        health: 100,
+        health: 1,
         imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/61fC04pumjL._AC_SL1001_.jpg'
       },
       {
@@ -26,7 +26,7 @@ const dinos = [
         age: 20,
         owner: 'Mary',
         adventures: [],
-        health: 100,
+        health: 45,
         imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/61fC04pumjL._AC_SL1001_.jpg'
       }
 ];
@@ -73,12 +73,28 @@ const singleDinoAddEvents = () => {
     }
 };
 
+const dinoHealth = (e) => {
+    const dinoId = e.target.closest('.card').id;
+    const dinoPosition = dinos.findIndex((x) => x.id === dinoId);
+    if (dinos[dinoPosition].health < 100){
+    dinos[dinoPosition].health += 1;
+    printDinos(dinos);
+    }
+};
+
+const petEvents = () => {
+    const dinoPetButtons = document.getElementsByClassName('dino-photo');
+    for (let i = 0; i < dinoPetButtons.length; i++){
+        dinoPetButtons[i].addEventListener('mouseleave', dinoHealth);
+    }
+};
+
 const printDinos = (dinoArray) => {
     let domString ='';
     for (let i = 0; i < dinoArray.length; i++){
         domString += '<div class="col-4">';
         domString += `<div id="${dinoArray[i].id}" class="card">`;
-        domString += `<img src="${dinoArray[i].imageUrl}" class="card-img-top" alt="...">`;
+        domString += `<img src="${dinoArray[i].imageUrl}" class="card-img-top dino-photo" alt="...">`;
         domString += '<div class="card-body">';
         domString += `<h5 class="card-title">${dinoArray[i].name}</h5>`;
         domString += `<p class="card-text">Health: ${dinoArray[i].health}</p>`;
@@ -89,6 +105,7 @@ const printDinos = (dinoArray) => {
     }
     printToDom('kennel', domString);
     singleDinoAddEvents();
+    petEvents();
 };
 
 const newDino = (e) => {
