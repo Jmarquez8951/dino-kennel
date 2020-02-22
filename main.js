@@ -3,10 +3,10 @@ const dinos = [
         id: 'dino1',
         name: 'Rex',
         type: 'T Rex',
-        age: 100,
+        age: 98,
         owner: 'Luke',
         adventures: [],
-        health: 100,
+        health: 98,
         imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/61fC04pumjL._AC_SL1001_.jpg'
       },
       {
@@ -76,8 +76,10 @@ const singleDinoAddEvents = () => {
 const dinoHealth = (e) => {
     const dinoId = e.target.closest('.card').id;
     const dinoPosition = dinos.findIndex((x) => x.id === dinoId);
+    if (dinos[dinoPosition].health < 100){
     dinos[dinoPosition].health += 1;
     printDinos(dinos);
+    }
 };
 
 const petEvents = () => {
