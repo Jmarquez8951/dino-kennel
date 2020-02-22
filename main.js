@@ -13,6 +13,7 @@ const newDino = (e) => {
         imageUrl: document.getElementById('dino-image').value
       }
       dinos.push(brandNewDino);
+      document.getElementById('newDinoForm').reset();
     console.log('hi from newDino', dinos);
 };
 
